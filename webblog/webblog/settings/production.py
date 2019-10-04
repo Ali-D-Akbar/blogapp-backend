@@ -1,4 +1,5 @@
 from .base import *
+import dj_database_url
 
 DEBUG = False
 
@@ -45,3 +46,4 @@ AWS_S3_OBJECT_PARAMETERS = {
 # STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 
 DEFAULT_FILE_STORAGE = 'webblog.storage_backends.MediaStorage'  # <-- here is where we reference it
+
