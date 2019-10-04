@@ -1,1 +1,1 @@
-web: webblog.webblog.wsgi --log-file -
+web: webblog.wsgi --log-file -
