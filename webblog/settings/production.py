@@ -1,5 +1,5 @@
 from .base import *
-import dj_database_url
+from decouple import config
 
 DEBUG = False
 
@@ -18,6 +18,17 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
 }
 
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "webblog",
+        "USER": "foo",
+        "PASSWORD": "bar",
+        "HOST": "localhost",
+        "PORT": "5432",
+    }
+}
+
 MIDDLEWARE += (
     'corsheaders.middleware.CorsMiddleware',
 )
@@ -31,8 +42,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 #     os.path.join(BASE_DIR, './static'),
 # ]
 
-AWS_ACCESS_KEY_ID = 'AKIAZRTEZDCSZPPQTAOL'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'ali-d-akbar'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {

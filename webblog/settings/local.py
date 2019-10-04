@@ -1,3 +1,5 @@
+from decouple import config
+
 from .base import *
 
 DEBUG = True
@@ -9,6 +11,13 @@ INSTALLED_APPS += (
     'accounts',
     'storages',
 )
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
@@ -29,8 +38,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 #     os.path.join(BASE_DIR, './static'),
 # ]
 
-AWS_ACCESS_KEY_ID = 'AKIAZRTEZDCSZPPQTAOL'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'ali-d-akbar'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {
