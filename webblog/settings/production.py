@@ -18,20 +18,20 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
 }
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "webblog",
-        "USER": "foo",
-        "PASSWORD": "bar",
-        "HOST": "localhost",
-        "PORT": "5432",
-    }
-}
-
 MIDDLEWARE += (
     'corsheaders.middleware.CorsMiddleware',
 )
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd4dbcnipet05um',
+        'USER': 'xasomvaxhajhxx',
+        'PASSWORD': '53a76fedcc3fe275e79d3be481f883db62fa00f2e0a3963869fcb6f4843e61d3',
+        'HOST': 'ec2-174-129-227-146.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 
 CORS_ORIGIN_ALLOW_ALL = True
 
