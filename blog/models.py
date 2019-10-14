@@ -1,6 +1,10 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Count, Q
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.text import slugify
+from django_countries.fields import CountryField
 
 
 class Blog(models.Model):
@@ -75,3 +79,25 @@ class UserVote(models.Model):
 
     class Meta:
         unique_together = ('user', 'blog')
+
+
+class Profile(models.Model):
+    GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+    )
+    user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
+    contact_number = models.CharField(max_length=30, blank=True)
+    date_of_birth = models.DateField(null=True, blank=True)
+    image = models.FileField(blank=True, null=True)
+    country = CountryField(default="US")
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()

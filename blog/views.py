@@ -5,10 +5,15 @@ from rest_framework import permissions, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from blog.models import Blog, Comment, UserVote
+from blog.models import Blog, Comment, Profile, UserVote
 from blog.permissions import IsOwnerOrReadOnly
-from blog.serializers import (BlogSerializer, CommentSerializer,
-                              UserSerializer, VoteSerializer)
+from blog.serializers import (
+    BlogSerializer,
+    CommentSerializer,
+    ProfileSerializer,
+    UserSerializer,
+    VoteSerializer
+)
 
 
 class BlogAPI(viewsets.ModelViewSet):
@@ -76,6 +81,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class CommentAPI(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
+
     serializer_class = CommentSerializer
 
     def perform_create(self, serializer):
@@ -85,3 +91,11 @@ class CommentAPI(viewsets.ModelViewSet):
 class VoteAPI(viewsets.ModelViewSet):
     queryset = UserVote.objects.all()
     serializer_class = VoteSerializer
+
+
+class ProfileViewSet(viewsets.ModelViewSet):
+    """
+    This viewset automatically provides `list` and `detail` actions.
+    """
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer

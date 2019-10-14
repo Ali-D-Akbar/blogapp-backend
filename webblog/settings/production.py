@@ -1,46 +1,6 @@
 from .base import *
-from decouple import config
 
 DEBUG = False
-
-INSTALLED_APPS += (
-    'rest_framework',
-    'blog.apps.BlogConfig',
-    'corsheaders',
-    'knox',
-    'accounts',
-    'storages',
-)
-
-REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 3,
-    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
-}
-
-MIDDLEWARE += (
-    'corsheaders.middleware.CorsMiddleware',
-)
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd4dbcnipet05um',
-        'USER': 'xasomvaxhajhxx',
-        'PASSWORD': '53a76fedcc3fe275e79d3be481f883db62fa00f2e0a3963869fcb6f4843e61d3',
-        'HOST': 'ec2-174-129-227-146.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
-}
-
-CORS_ORIGIN_ALLOW_ALL = True
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, './static'),
-# ]
 
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
@@ -57,3 +17,14 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 
 DEFAULT_FILE_STORAGE = 'webblog.storage_backends.MediaStorage'  # <-- here is where we reference it
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd4dbcnipet05um',
+        'USER': 'xasomvaxhajhxx',
+        'PASSWORD': '53a76fedcc3fe275e79d3be481f883db62fa00f2e0a3963869fcb6f4843e61d3',
+        'HOST': 'ec2-174-129-227-146.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
