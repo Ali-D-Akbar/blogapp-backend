@@ -1,4 +1,4 @@
-# Create your tests here.
+import pytest
 from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework.test import (
@@ -10,6 +10,8 @@ from rest_framework.test import (
 from accounts.views import RegisterAPI
 from blog.models import Blog
 from blog.views import BlogAPI
+
+pytestmark = pytest.mark.django_db
 
 
 class BlogTests(APITestCase):
@@ -35,17 +37,6 @@ class BlogTests(APITestCase):
 
         request = factory.post(url, body)
         return request
-
-    def test_get_blog_list_unauthorized(self):
-        factory = APIRequestFactory()
-        view = BlogAPI.as_view({
-            'get': 'list'
-        })
-        url = '/api/blog'
-
-        request = factory.get(url)
-        response = view(request)
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_get_blog_list_authorized(self):
         credentials = {
@@ -128,5 +119,5 @@ class BlogTests(APITestCase):
         request = factory.delete(url)
 
         force_authenticate(request, user=user)
-        response = view(request, pk=blog.id)
+        response = view(request, slug=blog.slug)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)

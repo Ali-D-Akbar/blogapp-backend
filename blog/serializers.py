@@ -6,7 +6,7 @@ from blog.models import Blog, Comment, Profile, UserVote
 
 
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):
-    userid = serializers.ReadOnlyField(source='user.id')
+    userid = serializers.ReadOnlyField(source='user.username')
 
     class Meta:
         model = Profile
@@ -20,6 +20,9 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ['url', 'id', 'username', 'first_name', 'last_name', 'email', 'blog', 'profile']
+        extra_kwargs = {
+            'url': {'lookup_field': 'username'}
+        }
 
 
 class ReplySerializer(serializers.ModelSerializer):
