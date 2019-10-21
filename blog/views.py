@@ -7,13 +7,9 @@ from rest_framework.response import Response
 
 from blog.models import Blog, Comment, Profile, UserVote
 from blog.permissions import IsOwnerOrReadOnly
-from blog.serializers import (
-    BlogSerializer,
-    CommentSerializer,
-    ProfileSerializer,
-    UserSerializer,
-    VoteSerializer
-)
+from blog.serializers import (BlogSerializer, CommentSerializer,
+                              ProfileSerializer, UserSerializer,
+                              VoteSerializer)
 
 
 class BlogAPI(viewsets.ModelViewSet):
@@ -54,10 +50,14 @@ class BlogAPI(viewsets.ModelViewSet):
 
         page = self.paginate_queryset(queryset)
         if page is not None:
-            serializer = BlogSerializer(page, many=True, context={'request': request})
+            serializer = BlogSerializer(
+                page, many=True, context={'request': request}
+            )
             return self.get_paginated_response(serializer.data)
 
-        serializer = BlogSerializer(queryset, many=True, context={'request': request})
+        serializer = BlogSerializer(
+            queryset, many=True, context={'request': request}
+        )
         return Response(serializer.data)
 
     @action(detail=True)

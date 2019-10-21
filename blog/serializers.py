@@ -10,7 +10,10 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('url', 'id', 'userid', 'gender', 'contact_number', 'date_of_birth', 'image', 'country')
+        fields = (
+            'url', 'id', 'userid', 'gender', 'contact_number', 'date_of_birth',
+            'image', 'country'
+        )
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -19,7 +22,10 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ['url', 'id', 'username', 'first_name', 'last_name', 'email', 'blog', 'profile']
+        fields = [
+            'url', 'id', 'username', 'first_name', 'last_name', 'email',
+            'blog', 'profile'
+        ]
         extra_kwargs = {
             'url': {'lookup_field': 'username'}
         }
@@ -44,11 +50,16 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ['parent', 'id', 'blog', 'description', 'created', 'owner', 'reply']
+        fields = [
+            'parent', 'id', 'blog', 'description', 'created', 'owner', 'reply'
+        ]
 
     def get_reply(self, obj):
         if obj.is_parent:
-            return ReplySerializer(obj.children(), many=True, context={'request': self.context['request']}).data
+            return ReplySerializer(
+                obj.children(), many=True,
+                context={'request': self.context['request']}
+            ).data
 
         return None
 
@@ -59,7 +70,10 @@ class BlogSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Blog
-        fields = ['url', 'slug', 'id', 'title', 'description', 'created', 'owner', 'image', 'votes', 'comment', 'draft']
+        fields = [
+            'url', 'slug', 'id', 'title', 'description', 'created', 'owner',
+            'image', 'votes', 'comment', 'draft'
+        ]
         lookup_field = 'slug'
         extra_kwargs = {
             'url': {'lookup_field': 'slug'}

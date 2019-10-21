@@ -16,8 +16,8 @@ class CustomUserAdmin(UserAdmin):
     inlines = (ProfileInline,)
     list_select_related = ('profile',)
     list_display = (
-        'username', 'first_name', 'last_name', 'get_date_of_birth', 'email', 'get_gender', 'get_contact_number',
-        'get_country'
+        'username', 'first_name', 'last_name', 'get_date_of_birth', 'email',
+        'get_gender', 'get_contact_number', 'get_country'
     )
 
     def get_date_of_birth(self, instance):
