@@ -17,7 +17,7 @@ clean:
 	coverage erase
 
 quality:
-	isort --check-only --diff --recursive .
+	isort --skip venv --check-only --diff --recursive .
 	pycodestyle --exclude='venv','migrations' --config=.pep8 .
 
 requirements:
