@@ -1,4 +1,4 @@
-
+from decouple import config
 
 from .base import *
 

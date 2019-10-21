@@ -1,8 +1,9 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/circleci-demo-cirpython-django
     docker:
-      - image: circleci/python:3.6
+      - image: circleci/python:3.6.4
     steps:
       - checkout
       - restore_cache:
