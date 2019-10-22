@@ -22,7 +22,7 @@ quality:
 	pycodestyle --exclude='venv','migrations' --config=.pep8 .
 
 requirements:
-	pip install -r requirements/local.txt --exists-action w
+	pip install -r requirements/local.txt
 
 prod_requirements:
 	pip install -r requirements/production.txt --exists-action w
