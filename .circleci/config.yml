@@ -20,6 +20,7 @@ jobs:
       - run:
           name: Running tests
           command: |
+            . venv/bin/activate
             make validate
       - store_artifacts:
           path: test-reports/
