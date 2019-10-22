@@ -5,7 +5,7 @@ help:
 	@echo "  migrate                    apply database migrations"
 	@echo "  prod_requirements          install production requirements for django-rest-blog-app-backend python3 environment"
 	@echo "  quality                    check code quality for django-rest-blog-app-backend"
-	@echo "  requirements               install local requirements for django-rest-blog-app-backend python3 environment"
+	@echo "  local_requirements               install local requirements for django-rest-blog-app-backend python3 environment"
 	@echo "  serve                      serve django-rest-blog-app-backend at 0.0.0.0:8000"
 	@echo "  static                     build and compress static assets"
 	@echo "  test                       run tests"
@@ -19,10 +19,10 @@ clean:
 
 quality:
 	isort --skip venv --check-only --diff --recursive .
-	pycodestyle --exclude='venv','migrations' --config=.pep8 .
+	pycodestyle --exclude='venv','migrations' --config=.pep8 --max-line-length=120 .
 
-requirements:
-	pip install -r requirements/local.txt
+local_requirements:
+	pip install -r requirements/local.txt --exists-action w
 
 prod_requirements:
 	pip install -r requirements/production.txt --exists-action w
