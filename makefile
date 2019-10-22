@@ -10,6 +10,7 @@ help:
 	@echo "  static                     build and compress static assets"
 	@echo "  test                       run tests"
 	@echo "  html_coverage              open code coverage in browser as HTML document"
+	@echo "  validate                   check code quality and run tests"
 	@echo ""
 
 clean:
@@ -21,10 +22,10 @@ quality:
 	pycodestyle --exclude='venv','migrations' --config=.pep8 .
 
 requirements:
-	pip install -qr requirements/local.txt --exists-action w
+	pip install -r requirements/local.txt --exists-action w
 
 prod_requirements:
-	pip install -qr requirements/production.txt --exists-action w
+	pip install -r requirements/production.txt --exists-action w
 
 static:
 	python manage.py collectstatic --noinput
@@ -36,7 +37,7 @@ migrate:
 	python manage.py migrate --noinput
 
 html_coverage:
-	coverage html && open htmlcov/index.html
+	coverage html && xdg-open htmlcov/index.html
 
 test: clean
 	py.test -vv --nomigrations --cov=webblog --cov-report term --cov-config=.coveragerc

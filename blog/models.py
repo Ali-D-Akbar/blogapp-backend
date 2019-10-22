@@ -33,15 +33,15 @@ class Blog(models.Model):
             total_votes=(
                     Count(
                         'post_votes', filter=(
-                                Q(post_votes__vote_type='U')
-                                & Q(post_votes__blog=self)
+                                Q(post_votes__vote_type='U') &
+                                Q(post_votes__blog=self)
                         )
                     )
                     -
                     Count(
                         'post_votes', filter=(
-                                Q(post_votes__vote_type='D')
-                                & Q(post_votes__blog=self)
+                                Q(post_votes__vote_type='D') &
+                                Q(post_votes__blog=self)
                         )
                     )
             )
@@ -67,14 +67,19 @@ class Blog(models.Model):
 
 
 class Comment(models.Model):
-    parent = models.ForeignKey('self', blank=True, null=True,
-                               related_name='reply', on_delete=models.CASCADE)
-    blog = models.ForeignKey(Blog, related_name='comment',
-                             on_delete=models.CASCADE)
+    parent = models.ForeignKey(
+        'self', blank=True, null=True, related_name='reply',
+        on_delete=models.CASCADE
+    )
+    blog = models.ForeignKey(
+        Blog, related_name='comment', on_delete=models.CASCADE
+    )
     description = models.TextField(max_length=50000)
     created = models.DateTimeField(auto_now_add=True)
-    owner = models.ForeignKey('auth.User', related_name='comment',
-                              on_delete=models.CASCADE, null=True)
+    owner = models.ForeignKey(
+        'auth.User', related_name='comment',
+        on_delete=models.CASCADE, null=True
+    )
 
     def children(self):
         return Comment.objects.filter(parent=self)
@@ -91,10 +96,12 @@ class UserVote(models.Model):
         ('U', 'Upvote'),
         ('D', 'Downvote'),
     )
-    user = models.ForeignKey('auth.User', related_name='user_votes',
-                             on_delete=models.CASCADE)
-    blog = models.ForeignKey(Blog, related_name='post_votes',
-                             on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        'auth.User', related_name='user_votes', on_delete=models.CASCADE
+    )
+    blog = models.ForeignKey(
+        Blog, related_name='post_votes', on_delete=models.CASCADE
+    )
     vote_type = models.CharField(max_length=1, choices=VOTE_CHOICES)
 
     class Meta:
@@ -106,8 +113,9 @@ class Profile(models.Model):
         ('M', 'Male'),
         ('F', 'Female'),
     )
-    user = models.OneToOneField(User, related_name='profile',
-                                on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        User, related_name='profile', on_delete=models.CASCADE
+    )
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
     contact_number = models.CharField(max_length=30, blank=True)
     date_of_birth = models.DateField(null=True, blank=True)

@@ -16,8 +16,7 @@ class BlogAPI(viewsets.ModelViewSet):
     queryset = Blog.objects.all()
 
     permission_classes = [
-        permissions.IsAuthenticatedOrReadOnly,
-        IsOwnerOrReadOnly,
+        permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,
     ]
 
     lookup_field = 'slug'
@@ -39,8 +38,7 @@ class BlogAPI(viewsets.ModelViewSet):
 
         elif request.user.is_authenticated:
             queryset = Blog.objects.filter(
-                Q(draft=False) |
-                (Q(draft=True) & Q(owner=request.user))
+                Q(draft=False) | (Q(draft=True) & Q(owner=request.user))
             )
 
         else:
