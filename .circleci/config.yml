@@ -8,14 +8,19 @@ jobs:
       - checkout
       - restore_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
-      - run: python3 -m venv venv
-      - run: . venv/bin/activate
-      - run: pip install -r requirements.txt
+      - run:
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
             - "venv"
-      - run: make validate
+      - run:
+          name: Running tests
+          command: |
+            make validate
       - store_artifacts:
           path: test-reports/
           destination: python_app
