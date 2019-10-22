@@ -1,27 +1,21 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/circleci-demo-cirpython-django
+    working_directory: ~/webblog
     docker:
       - image: circleci/python:3.6.4
     steps:
       - checkout
       - restore_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
-      - run:
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r requirements.txt
+      - run: python3 -m venv venv
+      - run: . venv/bin/activate
+      - run: pip install -r requirements.txt
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
             - "venv"
-      - run:
-          name: Running tests
-          command: |
-            . venv/bin/activate
-            make validate
+      - run: make validate
       - store_artifacts:
           path: test-reports/
           destination: python_app
