@@ -1,0 +1,6 @@
+[flake8]
+count = False
+ignore = D100
+max-line-length = 120
+statistics = True
+exclude = settings, venv, migrations, manage.py, storage_backends.py, __init__.py

@@ -18,8 +18,8 @@ clean:
 	coverage erase
 
 quality:
-	isort --skip venv --check-only --diff --recursive .
-	pycodestyle --exclude='venv','migrations' --config=.pep8 --max-line-length=120 .
+	isort --check-only --diff --recursive .
+	flake8 --config=.pep8
 
 local_requirements:
 	pip install -r requirements/local.txt --exists-action w
