@@ -42,4 +42,4 @@ html_coverage:
 test: clean
 	py.test -vv --nomigrations --cov=. --cov-report term --cov-config=.coveragerc
 
-validate: quality test html_coverage
+validate: quality test
