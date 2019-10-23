@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('blog', '0001_initial'),
@@ -30,7 +29,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='comment',
             name='parent',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='reply', to='blog.Comment'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='reply', to='blog.Comment'),
         ),
         migrations.AlterField(
             model_name='blog',
@@ -52,8 +52,10 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('vote_type', models.CharField(choices=[('U', 'Upvote'), ('D', 'Downvote')], max_length=1)),
-                ('blog', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='post_votes', to='blog.Blog')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user_votes', to=settings.AUTH_USER_MODEL)),
+                ('blog', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='post_votes',
+                                           to='blog.Blog')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user_votes',
+                                           to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'unique_together': {('user', 'blog')},

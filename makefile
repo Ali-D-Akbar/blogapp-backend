@@ -5,7 +5,7 @@ help:
 	@echo "  migrate                    apply database migrations"
 	@echo "  prod_requirements          install production requirements for django-rest-blog-app-backend python3 environment"
 	@echo "  quality                    check code quality for django-rest-blog-app-backend"
-	@echo "  local_requirements               install local requirements for django-rest-blog-app-backend python3 environment"
+	@echo "  local_requirements         install local requirements for django-rest-blog-app-backend python3 environment"
 	@echo "  serve                      serve django-rest-blog-app-backend at 0.0.0.0:8000"
 	@echo "  static                     build and compress static assets"
 	@echo "  test                       run tests"
@@ -40,6 +40,6 @@ html_coverage:
 	coverage html && xdg-open htmlcov/index.html
 
 test: clean
-	py.test -vv --nomigrations --cov=webblog --cov-report term --cov-config=.coveragerc
+	py.test -vv --nomigrations --cov=. --cov-report term --cov-config=.coveragerc
 
-validate: quality test
+validate: quality test html_coverage

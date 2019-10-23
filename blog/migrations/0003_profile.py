@@ -7,7 +7,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('blog', '0002_auto_20191002_1251'),
@@ -23,7 +22,8 @@ class Migration(migrations.Migration):
                 ('date_of_birth', models.DateField(blank=True, null=True)),
                 ('image', models.FileField(blank=True, null=True, upload_to='')),
                 ('country', django_countries.fields.CountryField(default='US', max_length=2)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='profile', to=settings.AUTH_USER_MODEL)),
+                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='profile',
+                                              to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

@@ -80,7 +80,7 @@ class BlogSerializer(serializers.HyperlinkedModelSerializer):
         }
 
 
-class VoteSerializer (serializers.HyperlinkedModelSerializer):
+class VoteSerializer(serializers.HyperlinkedModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')
     blog = serializers.HyperlinkedRelatedField(
         view_name='blog-detail', lookup_field='slug',

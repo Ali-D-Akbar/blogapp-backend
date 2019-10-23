@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -22,7 +21,8 @@ class Migration(migrations.Migration):
                 ('description', models.TextField(max_length=1500)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('image', models.FileField(blank=True, null=True, upload_to='')),
-                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='blog', to=settings.AUTH_USER_MODEL)),
+                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='blog',
+                                            to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
@@ -31,8 +31,11 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('description', models.TextField(max_length=1500)),
                 ('created', models.DateTimeField(auto_now_add=True)),
-                ('blog', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comment', to='blog.Blog')),
-                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='comment', to=settings.AUTH_USER_MODEL)),
+                ('blog', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comment',
+                                           to='blog.Blog')),
+                ('owner',
+                 models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='comment',
+                                   to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]
